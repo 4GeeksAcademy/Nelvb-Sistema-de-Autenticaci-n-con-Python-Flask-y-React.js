@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, Blueprint
 from api.models import db, User
-from api.utils import create_jwt_token, verify_jwt_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
 
 
@@ -55,27 +55,34 @@ def login():
         return jsonify({'msg': 'Credenciales inválidas'}), 401
     
     # Generar un JWT o token para la sesión
-    token = create_jwt_token(user.id)
+    token = create_access_token(identity=user.id)
 
     return jsonify({'token': token}), 200
 
+
+
+# Ruta protegida con JWT, requiere token válido
+@api.route('/api/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user_id = get_jwt_identity()  # Recupera el ID del usuario a partir del JWT
+    user = User.query.get(current_user_id)
+
+    if user is None:
+        return jsonify({'msg': 'Usuario no encontrado'}), 404
+    
+    return jsonify({'id':user.id, 'email': user.email}), 200
+
+
+
 # Ruta para validar un token JWT
 @api.route('/api/validate-token', methods=['GET'])
+@jwt_required()
 def validate_token():
-    authorization_header = request.headers.get('Authorization')
-    if authorization_header is None:
-        return jsonify({
-            'msg': 'token no encontrado'
-        }), 401
-    
-    token = authorization_header.split(' ')[1]
-    authenticated_user_id = verify_jwt_token(token)
+    current_user_id = get_jwt_identity()  # Recupera el ID del usuario del JWT
+    user = User.query.get(current_user_id)
 
-    if authenticated_user_id is None:                                          
-        return jsonify({'msg': 'Token no válido o expirado'}), 401
-   
-    user = User.query.get(authenticated_user_id)
     if user is None:
-        return jsonify({'msg': 'Usuario no encontrado'}), 401
-    
-    return jsonify({'msg': 'Token válido'}), 200
+        return jsonify({'msg': 'Usuario no encontrado'}), 404
+
+    return jsonify({'msg': 'Token válido', 'user_id': user.id, 'email': user.email}), 200
