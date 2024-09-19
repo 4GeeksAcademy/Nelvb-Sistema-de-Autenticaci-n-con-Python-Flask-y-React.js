@@ -1,4 +1,28 @@
 from flask import jsonify, url_for
+import jwt
+import os
+from datetime import datetime, timedelta, timezone
+
+
+# Función para crear un token JWT
+def create_jwt_token(user_id):
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.now(timezone.utc) + timedelta(hours=24),
+        'iat': datetime.now(timezone.utc)
+    }
+    token = jwt.encode(payload, os.getenv("JWT_SECRET_KEY"), algorithm='HS256')
+    return token
+
+# Función para verificar el token JWT
+def verify_jwt_token(token):
+    try:
+        payload = jwt.decode(token, os.getenv('JWT_SECRET_KEY'), algorithms=['HS256'])
+        return payload['user_id']
+    except jwt.ExpiredSignatureError:
+        return None # El token expiró
+    except jwt.InvalidTokenError:
+        return None # El token no es válido
 
 class APIException(Exception):
     status_code = 400
