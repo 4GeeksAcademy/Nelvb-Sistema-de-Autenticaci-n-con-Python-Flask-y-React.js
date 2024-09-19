@@ -1,28 +1,16 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, Blueprint
 from api.models import db, User
-from api.utils import generate_sitemap, APIException
+from api.utils import create_jwt_token, verify_jwt_token
 from flask_cors import CORS
-from api.utils import create_jwt_token
 
 
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
-
-
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
 
 
 
@@ -70,3 +58,24 @@ def login():
     token = create_jwt_token(user.id)
 
     return jsonify({'token': token}), 200
+
+# Ruta para validar un token JWT
+@api.route('/api/validate-token', methods=['GET'])
+def validate_token():
+    authorization_header = request.headers.get('Authorization')
+    if authorization_header is None:
+        return jsonify({
+            'msg': 'token no encontrado'
+        }), 401
+    
+    token = authorization_header.split(' ')[1]
+    authenticated_user_id = verify_jwt_token(token)
+
+    if authenticated_user_id is None:                                          
+        return jsonify({'msg': 'Token no válido o expirado'}), 401
+   
+    user = User.query.get(authenticated_user_id)
+    if user is None:
+        return jsonify({'msg': 'Usuario no encontrado'}), 401
+    
+    return jsonify({'msg': 'Token válido'}), 200

@@ -12,7 +12,7 @@ export const Signup = () => {
     const handleSubmit = async (e) => {
         e.peventDefault();
 
-        const response = await fetch("http://localhost:3001/api/signup",{
+        const response = await fetch("https://glorious-space-disco-4jqxg79xpp65f7grx-3001.app.github.dev/api/signup",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
