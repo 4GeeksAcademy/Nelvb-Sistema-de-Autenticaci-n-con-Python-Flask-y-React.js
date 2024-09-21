@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import {useNavigate } from 'react-router-dom';
-
+import '../../styles/index.css';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -31,22 +31,24 @@ export const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-            />
-            <input
-                type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Contraseña"
-                required
-            />
-            <button type='submit'>Iniciar Sesión</button>
-        </form>
+        <div className='login-container'>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type='email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    required
+                />
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Contraseña"
+                    required
+                />
+                <button type='submit' className='login-button'>Iniciar Sesión</button>
+            </form>
+        </div>
     );
 };

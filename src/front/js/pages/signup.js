@@ -9,8 +9,7 @@ export const Signup = () => {
     const navigate = useNavigate();
 
 
-    const handleSubmit = async (e) => {
-        e.peventDefault();
+    const handleSubmit = async () => {
 
         const response = await fetch("https://glorious-space-disco-4jqxg79xpp65f7grx-3001.app.github.dev/api/signup",{
             method: 'POST',
@@ -20,6 +19,7 @@ export const Signup = () => {
             body: JSON.stringify({
                 email: email,
                 password: password,
+                is_active: true,
             }),
         });
 
@@ -32,7 +32,7 @@ export const Signup = () => {
     };
 
     return(
-        <form onSubmit={handleSubmit}>
+        <div onSubmit={handleSubmit}>
             <input
                 type='email'
                 value={email}
@@ -47,7 +47,7 @@ export const Signup = () => {
                 placeholder='Contraseña'
                 required
             />
-            <button type= 'submit'>Registrarse</button>
-        </form>
+            <button onClick={() => handleSubmit()}>Registrarse</button>
+        </div>
     );
 };

@@ -62,7 +62,7 @@ def login():
 
 
 # Ruta protegida con JWT, requiere token válido
-@api.route('/api/protected', methods=['GET'])
+@api.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
     current_user_id = get_jwt_identity()  # Recupera el ID del usuario a partir del JWT
@@ -76,7 +76,7 @@ def protected():
 
 
 # Ruta para validar un token JWT
-@api.route('/api/validate-token', methods=['GET'])
+@api.route('/validate-token', methods=['GET'])
 @jwt_required()
 def validate_token():
     current_user_id = get_jwt_identity()  # Recupera el ID del usuario del JWT
