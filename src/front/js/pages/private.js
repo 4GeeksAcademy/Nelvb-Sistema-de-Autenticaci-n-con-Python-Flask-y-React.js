@@ -4,11 +4,8 @@ import { useNavigate } from 'react-router-dom';
 export const Private = () => {
     const navigate = useNavigate();
 
-
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-
-        //Aquí se hace una validación adicional
 
         const validateToken = async () => {
             const response = await fetch("https://glorious-space-disco-4jqxg79xpp65f7grx-3001.app.github.dev/api/validate-token", {
@@ -18,19 +15,16 @@ export const Private = () => {
             });
 
             if (!response.ok) {
-                navigate('/login');
+                navigate('/login');  // Redirige al login si el token no es válido
             }
         }
 
-        // Si no hay token redirige a login
         if (!token) {
-            navigate('/login');
+            navigate('/login');  // Redirige si no hay token
         } else {
             validateToken();
         }
-
     }, [navigate]);
-
 
     return (
         <div>

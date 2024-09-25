@@ -23,12 +23,12 @@ def signup():
     password = body.get('password')
 
     if not email or not password:
-
         return jsonify({'msg': 'Faltan datos'}), 400
+    
 
     # Verificar si el usuario ya existe
     if User.query.filter_by(email=email).first():
-        return jsonify({'msg': 'El usuario ya existe'}), 400
+        return jsonify({'msg': 'El usuario ya existe'}), 409 # Conflicto
 
     # Crear el nuevo usuario
     new_user = User(email=email)
