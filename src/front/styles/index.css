@@ -58,3 +58,129 @@ input::placeholder {
 .login-button:hover {
     background-color: #d81b60;
 }
+
+/* Estilo para el contenedor del signup, igual que el login */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background: url(https://img.freepik.com/fotos-premium/planeta-violeta-cielo-violeta-montanas-al-fondo_421632-38149.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Estilo para el formulario de signup */
+form {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para los inputs (se puede usar el mismo estilo de login) */
+input[type="text"], /* Para first_name y last_name */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: #888;
+}
+
+/* Estilo para el botón de registro (similar al de login) */
+.signup-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e91e63; /* Color del botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover en el botón de signup */
+.signup-button:hover {
+    background-color: #d81b60;
+}
+
+/* Estilo para el contenedor de la página privada (mismo fondo que login y signup) */
+.private-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background: url(https://img.freepik.com/fotos-premium/planeta-violeta-cielo-violeta-montanas-al-fondo_421632-38149.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Estilo para el mensaje centralizado */
+.private-message {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo para el título y el texto */
+.private-message h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.private-message p {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Estilo para el botón de cerrar sesión en la página privada */
+.btn-danger {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #dc3545;  /* Color rojo para indicar cierre de sesión */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Estilo personalizado para el botón de Volver */
+.btn-volver {
+    padding: 10px 20px;
+    background-color: #17a2b8;  /* Color turquesa */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-volver:hover {
+    background-color: #138496;  /* Un tono más oscuro al hacer hover */
+    transform: scale(1.05);  /* Un pequeño efecto de zoom al hacer hover */
+}

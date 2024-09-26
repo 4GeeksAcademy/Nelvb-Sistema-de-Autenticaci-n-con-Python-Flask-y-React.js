@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/index.css';  // Asegúrate de que se importen los estilos
 
 export const Private = () => {
     const navigate = useNavigate();
@@ -26,10 +27,21 @@ export const Private = () => {
         }
     }, [navigate]);
 
+    const handleLogout = () => {
+        sessionStorage.removeItem('token'); // Elimina el token
+        navigate('/login'); // Redirige al login
+    };
+
     return (
-        <div>
-            <h1>Página privada</h1>
-            <p>¡Bienvenido, has accedido a una página privada!</p>
+        <div className="private-container">
+            <div className="private-message">
+                <h1>Página privada</h1>
+                <p>¡Bienvenido, has accedido a una página privada!</p>
+                {/* Botón de cerrar sesión */}
+                <button className="btn btn-danger" onClick={handleLogout}>
+                    Cerrar Sesión
+                </button>
+            </div>
         </div>
     );
 };

@@ -1,27 +1,24 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import '../../styles/index.css';  
 
 export const Navbar = () => {
-	const token = sessionStorage.getItem('token')
-	const navigate= useNavigate()
+    const location = useLocation();
 
-	const handleLogout = () => {
-		sessionStorage.removeItem('token')
-		navigate('/login')
-	}
-	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
-				<div className="ml-auto">
-					{token ? <button onClick={() => handleLogout()}>Cerrar Sesión</button>: null}
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
-			</div>
-		</nav>
-	);
+    // Verificar si estamos en la página principal o en la página de login
+    const isLoginPageOrHomePage = location.pathname === '/login' || location.pathname === '/';
+
+    return (
+        <nav className="navbar navbar-light bg-light">
+            <div className="container">
+                {isLoginPageOrHomePage ? (
+                    <span className="navbar-text">Bienvenido a nuestra página</span>
+                ) : (
+                    <Link to="/">
+                        <button className="btn btn-primary btn-volver">Volver</button>
+                    </Link>
+                )}
+            </div>
+        </nav>
+    );
 };

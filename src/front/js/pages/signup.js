@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import '../../styles/index.css';  // Asegúrate de que los estilos se apliquen
 
 export const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState(""); // Campo para Nombre
+    const [lastName, setLastName] = useState("");   // Campo para Apellidos
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,13 +31,16 @@ export const Signup = () => {
                 body: JSON.stringify({
                     email: email,
                     password: password,
+                    first_name: firstName,  // Enviar el nombre
+                    last_name: lastName,    // Enviar los apellidos
                     is_active: true,
                 }),
             });
 
             if (response.ok) {
-                // Guardar email y contraseña en sessionStorage
+                // Guardar el email y la contraseña en sessionStorage
                 sessionStorage.setItem('signup_email', email);
+                sessionStorage.setItem('signup_password', password);
 
                 Swal.fire({
                     title: 'Registro exitoso',
@@ -74,11 +80,27 @@ export const Signup = () => {
         // Limpiar campos
         setEmail('');
         setPassword('');
+        setFirstName('');
+        setLastName('');
     };
 
     return (
-        <div>
+        <div className="signup-container">
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+                <input
+                    type='text'
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder='Nombre'
+                    required
+                />
+                <input
+                    type='text'
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder='Apellidos'
+                    required
+                />
                 <input
                     type='email'
                     value={email}
@@ -93,7 +115,7 @@ export const Signup = () => {
                     placeholder='Contraseña'
                     required
                 />
-                <button type="submit">Registrarse</button>
+                <button type="submit" className="signup-button">Registrarse</button>
             </form>
         </div>
     );
