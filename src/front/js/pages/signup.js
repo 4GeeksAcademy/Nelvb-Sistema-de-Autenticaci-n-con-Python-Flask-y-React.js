@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
-import '../../styles/index.css';  // Asegúrate de que los estilos se apliquen
+import '../../styles/index.css';  
 
 export const Signup = () => {
     const [email, setEmail] = useState("");
